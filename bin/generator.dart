@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:collection/collection.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:icon_font_generator/src/cli/arguments.dart';
 import 'package:icon_font_generator/src/cli/options.dart';
@@ -70,6 +71,7 @@ void _run(CliArguments parsedArgs) {
   final svgFileList = parsedArgs.svgDir
       .listSync(recursive: isRecursive)
       .where((e) => p.extension(e.path).toLowerCase() == '.svg')
+      .sorted((a, b) => a.path.toLowerCase().compareTo(b.path.toLowerCase()))
       .toList();
 
   if (svgFileList.isEmpty) {
